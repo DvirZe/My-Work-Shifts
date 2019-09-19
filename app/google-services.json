@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "340233883769",
+    "firebase_url": "https://my-work-shifts.firebaseio.com",
+    "project_id": "my-work-shifts",
+    "storage_bucket": "my-work-shifts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340233883769:android:a600fd59fad4381b6704a8",
+        "android_client_info": {
+          "package_name": "com.example.myworkshifts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340233883769-ni3tknha515nhdvv97eji1ojq2n5brol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myworkshifts",
+            "certificate_hash": "6082516cacc95f837dfa682eb1183c310a63f4e0"
+          }
+        },
+        {
+          "client_id": "340233883769-5jta6hpe6ihl0cpie4nit5h1jejj3cb8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACTn2oMvuXWjIxBZCoxc5DYrB70peSqQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340233883769-5jta6hpe6ihl0cpie4nit5h1jejj3cb8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
