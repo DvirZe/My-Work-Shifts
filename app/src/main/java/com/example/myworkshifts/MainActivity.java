@@ -54,9 +54,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void login(View view) {
+    public void login(final View view) {
 
+        mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(view.getContext(), ShiftsActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(view.getContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
+                        // ...
+                    }
+                });
 
     }
 }

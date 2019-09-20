@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import classes.Register;
+import com.example.classes.Register;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -36,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
         firstName   = findViewById(R.id.etFirstName);
         lastName    = findViewById(R.id.etLastName);
         companyName = findViewById(R.id.etCompany);
-        hourlyWage  = findViewById(R.id.etHourlyWage);
     }
 
     public void finish(View view) {
@@ -46,8 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         myRef.setValue(new Register(currentUser.getEmail(),
                                     firstName.getText().toString(),
                                     lastName.getText().toString(),
-                                    companyName.getText().toString(),
-                                    hourlyWage.getText().toString()));
+                                    companyName.getText().toString()));
 
         Toast.makeText(view.getContext(), "Registration complete.",
                 Toast.LENGTH_SHORT).show();
