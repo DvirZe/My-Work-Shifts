@@ -42,7 +42,7 @@
         android:inputType="numberSigned" />
 
     <Button
-        android:id="@+id/bFhinish"
+        android:id="@+id/bFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="finish"

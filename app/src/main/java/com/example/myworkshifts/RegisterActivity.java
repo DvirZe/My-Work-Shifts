@@ -17,7 +17,6 @@ import com.example.classes.Register;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
     private EditText firstName;
@@ -31,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         firstName   = findViewById(R.id.etFirstName);

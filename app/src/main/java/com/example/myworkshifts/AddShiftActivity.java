@@ -2,27 +2,25 @@ package com.example.myworkshifts;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.classes.Shift;
 import com.example.listeners.OnFocusChangeAddShift;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import com.example.classes.Shift;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.LocalDate;
+
 public class AddShiftActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private TextView addShiftTitle;
     private Shift shift;
     private LocalDate selectedDate;
     private EditText etStart, etEnd;
@@ -32,11 +30,11 @@ public class AddShiftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shift);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
 
-        addShiftTitle = findViewById(R.id.addShiftTitle);
+        TextView addShiftTitle = findViewById(R.id.addShiftTitle);
 
         shift = new Shift();
 

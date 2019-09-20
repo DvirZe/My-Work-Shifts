@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class OnFocusChangeAddShift implements OnFocusChangeAddShiftInterface {
 
-    private EditText et;
+    private final EditText et;
 
     public OnFocusChangeAddShift(EditText et) {
         this.et = et;

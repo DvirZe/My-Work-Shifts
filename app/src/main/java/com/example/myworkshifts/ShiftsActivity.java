@@ -32,7 +32,6 @@ import java.time.LocalTime;
 
 public class ShiftsActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference myRef;
     private LocalDate selectedDate;
@@ -46,7 +45,7 @@ public class ShiftsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shifts);
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -170,10 +169,10 @@ public class ShiftsActivity extends AppCompatActivity {
         });
         LocalTime workTime = calcWorkTime(shift);
         tvWorkHours.setText("Total work time on this day: " + workTime.toString());
-        updateEarend(workTime);
+        updateEarned(workTime);
     }
 
-    private void updateEarend(LocalTime workTime) {
+    private void updateEarned(LocalTime workTime) {
         DecimalFormat df = new DecimalFormat("0.00");
         Double earn = (Double.parseDouble(user.wage) * workTime.getHour()) + (Double.parseDouble(user.wage) * ((workTime.getMinute()*1.0)/60));
         twWorkIncome.setText("You earned " + df.format(earn) + " this shift.");
@@ -182,14 +181,13 @@ public class ShiftsActivity extends AppCompatActivity {
     private LocalTime calcWorkTime(Shift shift) {
         LocalTime start = LocalTime.parse(shift.getStart());
         LocalTime end = LocalTime.parse(shift.getEnd());
-        int minuts = end.getMinute() - start.getMinute();
+        int minutes = end.getMinute() - start.getMinute();
         int hours = end.getHour()-start.getHour();
-        if (minuts < 0) {
-            minuts = minuts + 60;
+        if (minutes < 0) {
+            minutes = minutes + 60;
             hours = hours - 1;
         }
-        LocalTime workTime = LocalTime.of(hours,minuts);
-        return workTime;
+        return LocalTime.of(hours,minutes);
     }
 
     public void addShift(View view) {
@@ -199,7 +197,7 @@ public class ShiftsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void removeShift(View view) {
+    private void removeShift(View view) {
         myRef.removeValue();
         handleNonExistsShift();
     }

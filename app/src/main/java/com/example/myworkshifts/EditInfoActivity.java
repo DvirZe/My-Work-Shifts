@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.classes.Register;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +22,6 @@ public class EditInfoActivity extends AppCompatActivity {
 
     private EditText esFName, esLName, esCompany, esWage;
     private Register user;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
-    private FirebaseDatabase database;
     private DatabaseReference myRefToUser;
 
     @Override
@@ -38,10 +34,10 @@ public class EditInfoActivity extends AppCompatActivity {
         esCompany = findViewById(R.id.esCompany);
         esWage = findViewById(R.id.esWage);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         myRefToUser = database.getReference().child(currentUser.getUid()).child("general");
 
