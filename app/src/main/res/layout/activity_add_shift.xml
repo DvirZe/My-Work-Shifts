@@ -55,4 +55,11 @@
         android:layout_height="wrap_content"
         android:onClick="saveShift"
         android:text="Save Shift" />
+
+    <Button
+        android:id="@+id/bCancelAddShift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="cancel"
+        android:text="Cancel" />
 </LinearLayout>

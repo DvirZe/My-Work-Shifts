@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -66,9 +67,6 @@ public class ShiftsActivity extends AppCompatActivity {
 
             }
         });
-
-        //myRefToUser = database.getReference().child(currentUser.getUid()).child("general");
-
 
         selectedDate = LocalDate.now();
 
@@ -134,6 +132,13 @@ public class ShiftsActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.miEdit) {
+            Intent intent = new Intent(this, EditInfoActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.miExit) {
+            finish();
             return true;
         }
 
@@ -163,6 +168,18 @@ public class ShiftsActivity extends AppCompatActivity {
                 removeShift(v);
             }
         });
+        LocalTime workTime = calcWorkTime(shift);
+        tvWorkHours.setText("Total work time on this day: " + workTime.toString());
+        updateEarend(workTime);
+    }
+
+    private void updateEarend(LocalTime workTime) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        Double earn = (Double.parseDouble(user.wage) * workTime.getHour()) + (Double.parseDouble(user.wage) * ((workTime.getMinute()*1.0)/60));
+        twWorkIncome.setText("You earned " + df.format(earn) + " this shift.");
+    }
+
+    private LocalTime calcWorkTime(Shift shift) {
         LocalTime start = LocalTime.parse(shift.getStart());
         LocalTime end = LocalTime.parse(shift.getEnd());
         int minuts = end.getMinute() - start.getMinute();
@@ -172,9 +189,7 @@ public class ShiftsActivity extends AppCompatActivity {
             hours = hours - 1;
         }
         LocalTime workTime = LocalTime.of(hours,minuts);
-        tvWorkHours.setText("Total work time on this day: " + workTime.toString());
-        Double earn = (Double.parseDouble(user.wage) * workTime.getHour()) + (Double.parseDouble(user.wage) * ((workTime.getMinute()*1.0)/60));
-        twWorkIncome.setText("You earned " + earn + " this shift.");
+        return workTime;
     }
 
     public void addShift(View view) {

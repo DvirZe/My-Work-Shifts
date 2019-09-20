@@ -38,16 +38,11 @@ public class AddShiftActivity extends AppCompatActivity {
 
         addShiftTitle = findViewById(R.id.addShiftTitle);
 
-        addShiftTitle.setText("Please enter the work hours for ");
-
         shift = new Shift();
 
         selectedDate = LocalDate.parse(getIntent().getExtras().getString("NEW_SHIFT_DATE"));
 
         addShiftTitle.setText("Please enter the work hours for " + selectedDate.getDayOfWeek() + " the " + selectedDate.getDayOfMonth() + " in " + selectedDate.getMonth() + " ," + selectedDate.getYear());
-
-        //shift.start = LocalTime.of(0,0);
-        //shift.end =  LocalTime.of(0,0);
 
         etStart = findViewById(R.id.etStart);
         etEnd = findViewById(R.id.etEnd);
@@ -78,5 +73,11 @@ public class AddShiftActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    public void cancel(View view) {
+        finish();
+        Toast.makeText(view.getContext(), "Shift not saved",
+                Toast.LENGTH_SHORT).show();
     }
 }

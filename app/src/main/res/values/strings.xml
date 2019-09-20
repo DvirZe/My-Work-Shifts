@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Work Shifts</string>
     <string name="action_edit">Edit account</string>
+    <string name="action_exit">Exit App</string>
 </resources>

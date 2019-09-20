@@ -2,7 +2,6 @@ package com.example.listeners;
 
 import android.graphics.Color;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,10 +30,11 @@ public class OnFocusChangeAddShift implements OnFocusChangeAddShiftInterface {
                             String minutes = et.getText().subSequence(2,4).toString();
                             et.setText(hour+":"+minutes);
                         }
-                        et.setBackgroundColor(Color.WHITE);
+                        et.setBackgroundColor(Color.TRANSPARENT);
                     }
                     else {
                         et.setBackgroundColor(Color.RED);
+                        et.setText("");
                     }
                 }
             }
