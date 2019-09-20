@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(view.getContext(), "Moving to the next step",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(view.getContext(), RegisterActivity.class);
@@ -76,4 +75,5 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
+
 }

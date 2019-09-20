@@ -1,16 +1,29 @@
 package com.example.classes;
 
-import java.time.LocalTime;
-
 public class Shift  {
-    public LocalTime start;
-    public LocalTime end;
+    public String start;
+    public String end;
 
-    public Shift(LocalTime start, LocalTime end) {
+    public Shift(String start, String end) {
         this.start = start;
         this.end = end;
     }
 
     public Shift() {}
 
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
 }

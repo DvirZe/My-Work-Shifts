@@ -33,6 +33,14 @@
         android:hint="Company Name"
         android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/etHourlyWage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Hourly Wage"
+        android:inputType="numberSigned" />
+
     <Button
         android:id="@+id/bFhinish"
         android:layout_width="match_parent"

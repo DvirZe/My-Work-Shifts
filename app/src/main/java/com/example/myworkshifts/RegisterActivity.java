@@ -1,5 +1,6 @@
 package com.example.myworkshifts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         firstName   = findViewById(R.id.etFirstName);
         lastName    = findViewById(R.id.etLastName);
         companyName = findViewById(R.id.etCompany);
+        hourlyWage  = findViewById(R.id.etHourlyWage);
     }
 
     public void finish(View view) {
@@ -45,9 +47,16 @@ public class RegisterActivity extends AppCompatActivity {
         myRef.setValue(new Register(currentUser.getEmail(),
                                     firstName.getText().toString(),
                                     lastName.getText().toString(),
-                                    companyName.getText().toString()));
+                                    companyName.getText().toString(),
+                                    hourlyWage.getText().toString()));
 
         Toast.makeText(view.getContext(), "Registration complete.",
                 Toast.LENGTH_SHORT).show();
+
+        finish();
+
+        Intent intent = new Intent(view.getContext(), ShiftsActivity.class);
+        startActivity(intent);
+
     }
 }
