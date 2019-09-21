@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         when user finish the registration.  */
     public void finish(final View view) {
 
-        if (checkFields()) {
+        if (!checkFields()) {
             Toasty.info(view.getContext(), R.string.form_incomplete, Toast.LENGTH_SHORT).show();
         } else {
 
@@ -86,10 +86,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         //  Save user info to the Database
         myRef.setValue(new Register(currentUser.getEmail(),
-                firstName.getText().toString(),
-                lastName.getText().toString(),
-                companyName.getText().toString(),
-                hourlyWage.getText().toString()));
+                firstName.getText().toString().trim(),
+                lastName.getText().toString().trim(),
+                companyName.getText().toString().trim(),
+                hourlyWage.getText().toString().trim()));
 
         Toasty.success(view.getContext(), R.string.reg_complete, Toast.LENGTH_SHORT).show();
 
@@ -104,11 +104,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Return false if the TextEdit is not full
     private boolean checkFields() {
-        return !firstName.getText().toString().equals("") &&
-                !lastName.getText().toString().equals("") &&
-                !companyName.getText().toString().equals("") &&
-                !hourlyWage.getText().toString().equals("") &&
-                !email.getText().toString().equals("") &&
-                !password.getText().toString().equals("");
+        return !(firstName.getText().toString().trim().equals("") ||
+                lastName.getText().toString().trim().equals("") ||
+                companyName.getText().toString().trim().equals("") ||
+                hourlyWage.getText().toString().trim().equals("") ||
+                email.getText().toString().trim().equals("") ||
+                password.getText().toString().trim().equals(""));
     }
 }
