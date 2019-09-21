@@ -59,6 +59,9 @@ public class EditInfoActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() { }
+
     public void cancel(View view) {
         finish();
         Toast.makeText(view.getContext(), "Edit not saved",

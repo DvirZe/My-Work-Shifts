@@ -27,32 +27,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
-        email       = findViewById(R.id.etEmail);
-        password    = findViewById(R.id.etPassword);
+
     }
 
     public void register(final View view) {
 
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(view.getContext(), "Moving to the next step",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(view.getContext(), RegisterActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(view.getContext(), "Error in mail or password.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
+        Intent intent = new Intent(view.getContext(), RegisterActivity.class);
+        startActivity(intent);
 
     }
 
     public void login(final View view) {
+
+        email       = findViewById(R.id.etEmail);
+        password    = findViewById(R.id.etPassword);
 
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -73,4 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    public void openLogin(View view) {
+        setContentView(R.layout.activity_login);
+    }
 }

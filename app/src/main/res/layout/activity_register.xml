@@ -1,50 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please fill the rest of the form" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/login"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="-251dp" />
 
-    <EditText
-        android:id="@+id/etFirstName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="First Name"
-        android:inputType="textPersonName" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/imageView">
 
-    <EditText
-        android:id="@+id/etLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Last Name"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/etFirstName"
+            style="@style/SimpleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textFilledBackground"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/etCompany"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Company Name"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/etLastName"
+            style="@style/SimpleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textFilledBackground"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/etHourlyWage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Hourly Wage"
-        android:inputType="numberSigned" />
+        <EditText
+            android:id="@+id/etCompany"
+            style="@style/SimpleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textFilledBackground"
+            android:ems="10"
+            android:hint="Company Name"
+            android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/bFinish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="finish"
-        android:text="Finish" />
-</LinearLayout>
+        <EditText
+            android:id="@+id/etHourlyWage"
+            style="@style/SimpleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textFilledBackground"
+            android:ems="10"
+            android:hint="Hourly Wage"
+            android:inputType="numberSigned" />
+
+        <EditText
+            android:id="@+id/etrEmail"
+            style="@style/SimpleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textFilledBackground"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/etrPassword"
+            style="@style/SimpleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textFilledBackground"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/bFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="fill_vertical|end"
+            android:hapticFeedbackEnabled="false"
+            android:onClick="finish"
+            android:text="Complete Registration"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

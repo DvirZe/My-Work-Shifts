@@ -144,6 +144,9 @@ public class ShiftsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() { }
+
 
     private void handleNonExistsShift() {
         workInfo.setVisibility(View.INVISIBLE);

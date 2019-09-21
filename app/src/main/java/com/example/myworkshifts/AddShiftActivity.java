@@ -51,6 +51,9 @@ public class AddShiftActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() { }
+
     public void saveShift(View view) {
         if (etStart.getText().toString().equals("") || etEnd.getText().toString().equals(""))
         {
