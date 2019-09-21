@@ -57,14 +57,15 @@ public class AddShiftActivity extends AppCompatActivity {
     public void onBackPressed() { }
 
     public void saveShift(View view) {
+
+        //  requestFocus to trig the 'OnFocusChange' listener
+        etStart.requestFocus();
+        etEnd.requestFocus();
+
         if (etStart.getText().toString().equals("") || etEnd.getText().toString().equals(""))
         {
-            Toasty.info(view.getContext(), R.string.empty_fields_add_shift,Toast.LENGTH_SHORT).show();
+            Toasty.info(view.getContext(), R.string.empty_fields_add_shift,Toast.LENGTH_LONG).show();
         }else {
-
-            //  requestFocus to trig the 'OnFocusChange' listener
-            etStart.requestFocus();
-            etEnd.requestFocus();
 
             shift.start = etStart.getText().toString();
             shift.end = etEnd.getText().toString();
