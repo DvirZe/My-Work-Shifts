@@ -14,6 +14,12 @@ public class OnFocusChangeAddShift implements OnFocusChangeAddShiftInterface {
         this.et = et;
     }
 
+    //******************************************//
+    //  This method check if the format in
+    //  hour EditText is in the right format
+    //  if the format is not correctly
+    //  fix the string or give the user a sign
+    //*****************************************//
     @Override
     public View.OnFocusChangeListener listener() {
         return new View.OnFocusChangeListener() {

@@ -3,9 +3,12 @@ package com.example.myworkshifts;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,6 +58,7 @@ public class ShiftsActivity extends AppCompatActivity {
 
         DatabaseReference myRefToUser = database.getReference().child(currentUser.getUid()).child("general");
 
+        //  Get user info
         myRefToUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,6 +82,8 @@ public class ShiftsActivity extends AppCompatActivity {
         twWorkIncome = findViewById(R.id.twWorkIncome);
 
         CalendarView cv = findViewById(R.id.calendarView);
+
+        //  Update screen when date changes
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @SuppressLint("RestrictedApi")
             @Override
@@ -97,7 +103,7 @@ public class ShiftsActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Shift shift = dataSnapshot.getValue(Shift.class);
                         if (shift == null) {
-                            handleNonExistsShift();
+                            handleNonExistsShift(null);
                         } else {
                             handelExistsShift(shift);
                         }
@@ -129,7 +135,7 @@ public class ShiftsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //  Open edit info activity
         if (id == R.id.miEdit) {
             Intent intent = new Intent(this, EditInfoActivity.class);
             startActivity(intent);
@@ -145,12 +151,34 @@ public class ShiftsActivity extends AppCompatActivity {
     }
 
     @Override
+    //Cancel the option to click back in this Activity
     public void onBackPressed() { }
 
+    /*  This method change the work hours section
+        and update the icon */
+    private void handleNonExistsShift(View view) {
 
-    private void handleNonExistsShift() {
-        workInfo.setVisibility(View.INVISIBLE);
-        fab.setImageResource(R.drawable.ic_pencil);
+        //  !Null = came after deleting shift
+        if (view != null) {
+            //  Fade animation
+            Animation animation = new AlphaAnimation(1, 0);
+            animation.setStartOffset(0);
+            animation.setDuration(1000);
+            workInfo.startAnimation(animation);
+            final Handler handler = new Handler();
+            //  Set delay to make the fade effect noticeable
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    workInfo.setVisibility(View.INVISIBLE);
+                    fab.setImageResource(R.drawable.ic_pencil);
+                }
+            }, 800);
+        } else {
+            workInfo.setVisibility(View.INVISIBLE);
+            fab.setImageResource(R.drawable.ic_pencil);
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +187,8 @@ public class ShiftsActivity extends AppCompatActivity {
         });
     }
 
+    /*  This method change the work hours section
+        and update the icon */
     private void handelExistsShift(Shift shift) {
         tvStart.setText(shift.getStart());
         tvEnd.setText(shift.getEnd());
@@ -175,12 +205,14 @@ public class ShiftsActivity extends AppCompatActivity {
         updateEarned(workTime);
     }
 
+    //  After loading new shift calculate and make visible the shift wage
     private void updateEarned(LocalTime workTime) {
         DecimalFormat df = new DecimalFormat("0.00");
         Double earn = (Double.parseDouble(user.wage) * workTime.getHour()) + (Double.parseDouble(user.wage) * ((workTime.getMinute()*1.0)/60));
         twWorkIncome.setText("You earned " + df.format(earn) + " this shift.");
     }
 
+    //  Calculate the length of the shift
     private LocalTime calcWorkTime(Shift shift) {
         LocalTime start = LocalTime.parse(shift.getStart());
         LocalTime end = LocalTime.parse(shift.getEnd());
@@ -202,7 +234,7 @@ public class ShiftsActivity extends AppCompatActivity {
 
     private void removeShift(View view) {
         myRef.removeValue();
-        handleNonExistsShift();
+        handleNonExistsShift(view);
     }
 
 }

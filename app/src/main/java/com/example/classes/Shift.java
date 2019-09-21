@@ -1,5 +1,7 @@
 package com.example.classes;
 
+import java.time.LocalTime;
+
 public class Shift  {
     public String start;
     public String end;
@@ -26,4 +28,13 @@ public class Shift  {
     public void setEnd(String end) {
         this.end = end;
     }
+
+    public int compereHours() {
+
+        LocalTime st = LocalTime.parse(start);
+        LocalTime en = LocalTime.parse(end);
+
+        return st.compareTo(en);
+    }
+
 }

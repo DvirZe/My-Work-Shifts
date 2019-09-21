@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.LocalDate;
 
+import es.dmoral.toasty.Toasty;
+
 public class AddShiftActivity extends AppCompatActivity {
 
     private FirebaseUser currentUser;
@@ -33,7 +35,6 @@ public class AddShiftActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-
         TextView addShiftTitle = findViewById(R.id.addShiftTitle);
 
         shift = new Shift();
@@ -45,40 +46,53 @@ public class AddShiftActivity extends AppCompatActivity {
         etStart = findViewById(R.id.etStart);
         etEnd = findViewById(R.id.etEnd);
 
+        //  Add listener to the hours fields
         etStart.setOnFocusChangeListener(new OnFocusChangeAddShift(etStart).listener());
         etEnd.setOnFocusChangeListener(new OnFocusChangeAddShift(etEnd).listener());
-
 
     }
 
     @Override
+    //Cancel the option to click back in this Activity
     public void onBackPressed() { }
 
     public void saveShift(View view) {
         if (etStart.getText().toString().equals("") || etEnd.getText().toString().equals(""))
         {
-            Toast.makeText(view.getContext(), "Fill te fields correctly before saving",Toast.LENGTH_SHORT).show();
+            Toasty.info(view.getContext(), R.string.empty_fields_add_shift,Toast.LENGTH_SHORT).show();
         }else {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference().child(currentUser.getUid())
-                    .child("workHours")
-                    .child(String.valueOf(selectedDate.getYear()))
-                    .child(String.valueOf(selectedDate.getMonthValue()))
-                    .child(String.valueOf(selectedDate.getDayOfMonth()));
+
+            //  requestFocus to trig the 'OnFocusChange' listener
+            etStart.requestFocus();
+            etEnd.requestFocus();
 
             shift.start = etStart.getText().toString();
             shift.end = etEnd.getText().toString();
 
-            myRef.setValue(shift);
-            Toast.makeText(view.getContext(), "Shift saved",
-                    Toast.LENGTH_SHORT).show();
-            finish();
+            //  Make sure that the end hour is later then the start hour
+            if (shift.compereHours() == 0) {
+                Toasty.error(view.getContext(), getString(R.string.same_hour_error),
+                        Toast.LENGTH_LONG).show();
+            } else if (shift.compereHours() == 1) {
+                Toasty.error(view.getContext(), getString(R.string.hour_error),
+                        Toast.LENGTH_LONG).show();
+            } else {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child(currentUser.getUid())
+                        .child("workHours")
+                        .child(String.valueOf(selectedDate.getYear()))
+                        .child(String.valueOf(selectedDate.getMonthValue()))
+                        .child(String.valueOf(selectedDate.getDayOfMonth()));
+                myRef.setValue(shift);
+                Toasty.success(view.getContext(), R.string.shift_saved, Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 
+    //  Close this activity when click cancel
     public void cancel(View view) {
         finish();
-        Toast.makeText(view.getContext(), "Shift not saved",
-                Toast.LENGTH_SHORT).show();
+        Toasty.info(view.getContext(), R.string.shift_not_saved, Toast.LENGTH_SHORT).show();
     }
 }

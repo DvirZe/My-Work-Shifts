@@ -2,4 +2,16 @@
     <string name="app_name">My Work Shifts</string>
     <string name="action_edit">Edit account</string>
     <string name="action_exit">Exit App</string>
+    <string name="same_hour_error">Start hour and End hour are the same.</string>
+    <string name="hour_error">End hour can not be before start hour.</string>
+    <string name="empty_fields_add_shift">Fill te fields correctly before saving</string>
+    <string name="shift_saved">Shift saved</string>
+    <string name="shift_not_saved">Shift not saved</string>
+    <string name="success">Success!</string>
+    <string name="auth_failed">Authentication failed.</string>
+    <string name="edit_saved">Edit saved</string>
+    <string name="edit_not_saved">Edit not saved</string>
+    <string name="form_incomplete">You have to complete the form first.</string>
+    <string name="email_password_error">Error in mail or password.</string>
+    <string name="reg_complete">Registration complete.</string>
 </resources>

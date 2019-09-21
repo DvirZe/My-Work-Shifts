@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.example.classes.Register;
 
+import es.dmoral.toasty.Toasty;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -49,19 +51,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
+    //Cancel the option to click back in this Activity
     public void onBackPressed() { }
 
+    /*  This method will save the log in email and password
+        when user finish the registration.  */
     public void finish(final View view) {
 
-        if (firstName.getText().toString().equals("") ||
-            lastName.getText().toString().equals("") ||
-            companyName.getText().toString().equals("") ||
-            hourlyWage.getText().toString().equals("") ||
-            email.getText().toString().equals("") ||
-            password.getText().toString().equals(""))
-        {
-            Toast.makeText(view.getContext(), "You have to complete the form first.",
-                    Toast.LENGTH_SHORT).show();
+        if (checkFields()) {
+            Toasty.info(view.getContext(), R.string.form_incomplete, Toast.LENGTH_SHORT).show();
         } else {
 
             mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
@@ -71,10 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Intent intent = new Intent(view.getContext(), RegisterActivity.class);
                                 startActivity(intent);
-                                ifUserRegisterOf(view);
+                                saveUserInfo(view);
                             } else {
-                                Toast.makeText(view.getContext(), "Error in mail or password.",
-                                        Toast.LENGTH_SHORT).show();
+                                Toasty.error(view.getContext(), R.string.email_password_error, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -82,24 +79,36 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void ifUserRegisterOf(View view){
+    private void saveUserInfo(View view){
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child(currentUser.getUid()).child("general");
 
+        //  Save user info to the Database
         myRef.setValue(new Register(currentUser.getEmail(),
                 firstName.getText().toString(),
                 lastName.getText().toString(),
                 companyName.getText().toString(),
                 hourlyWage.getText().toString()));
 
-        Toast.makeText(view.getContext(), "Registration complete.",
-                Toast.LENGTH_SHORT).show();
+        Toasty.success(view.getContext(), R.string.reg_complete, Toast.LENGTH_SHORT).show();
 
         finish();
 
+        //  Open the next stage - main screen of the app
         Intent intent = new Intent(view.getContext(), ShiftsActivity.class);
         startActivity(intent);
 
+    }
+
+
+    //Return false if the TextEdit is not full
+    private boolean checkFields() {
+        return !firstName.getText().toString().equals("") &&
+                !lastName.getText().toString().equals("") &&
+                !companyName.getText().toString().equals("") &&
+                !hourlyWage.getText().toString().equals("") &&
+                !email.getText().toString().equals("") &&
+                !password.getText().toString().equals("");
     }
 }

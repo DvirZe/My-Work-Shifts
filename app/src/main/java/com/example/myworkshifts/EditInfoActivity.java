@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import es.dmoral.toasty.Toasty;
+
 public class EditInfoActivity extends AppCompatActivity {
 
     private EditText esFName, esLName, esCompany, esWage;
@@ -41,6 +43,7 @@ public class EditInfoActivity extends AppCompatActivity {
 
         myRefToUser = database.getReference().child(currentUser.getUid()).child("general");
 
+        //  Set info inside the fields
         myRefToUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -60,20 +63,20 @@ public class EditInfoActivity extends AppCompatActivity {
     }
 
     @Override
+    //Cancel the option to click back in this Activity
     public void onBackPressed() { }
 
     public void cancel(View view) {
         finish();
-        Toast.makeText(view.getContext(), "Edit not saved",
-                Toast.LENGTH_SHORT).show();
+        Toasty.info(view.getContext(), R.string.edit_not_saved, Toast.LENGTH_SHORT).show();
     }
 
+    //  Update info in the Database before finish the activity
     public void saveEdit(View view) {
         user.company = esCompany.getText().toString();
         user.wage = esWage.getText().toString();
         myRefToUser.setValue(user);
         finish();
-        Toast.makeText(view.getContext(), "Edit saved",
-                Toast.LENGTH_SHORT).show();
+        Toasty.success(view.getContext(), R.string.edit_saved, Toast.LENGTH_SHORT).show();
     }
 }
