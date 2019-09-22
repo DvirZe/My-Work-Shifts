@@ -18,8 +18,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.classes.DatabaseConnection;
 import com.example.classes.Register;
 import com.example.classes.Shift;
+import com.example.classes.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,34 +37,33 @@ import java.time.LocalTime;
 
 public class ShiftsActivity extends AppCompatActivity {
 
-    private FirebaseUser currentUser;
+    private static DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
     private DatabaseReference myRef;
     private LocalDate selectedDate;
-    private FirebaseDatabase database;
     private TextView tvStart, tvEnd,tvWorkHours, twWorkIncome;
     private LinearLayout workInfo, welcomeNote;
     private FloatingActionButton fab;
-    private Register user;
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shifts);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        database = FirebaseDatabase.getInstance();
-
-        DatabaseReference myRefToUser = database.getReference().child(currentUser.getUid()).child("general");
+        DatabaseReference myRefToUser = DatabaseConnection
+                                        .getDatabase()
+                                        .getReference()
+                                        .child(DatabaseConnection.getCurrentUser().getUid())
+                                        .child("general");
 
         //  Get user info
         myRefToUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(Register.class);
+                user = new User(dataSnapshot.getValue(Register.class));
             }
 
             @Override
@@ -89,11 +90,12 @@ public class ShiftsActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 selectedDate = LocalDate.of(year,month+1,dayOfMonth);
-                myRef = database.getReference().child(currentUser.getUid())
-                                                .child("workHours")
-                                                .child(String.valueOf(year))
-                                                .child(String.valueOf(month+1))
-                                                .child(String.valueOf(dayOfMonth));
+                myRef = databaseConnection.getDatabase().getReference()
+                        .child(databaseConnection.getCurrentUser().getUid())
+                        .child("workHours")
+                        .child(String.valueOf(year))
+                        .child(String.valueOf(month+1))
+                        .child(String.valueOf(dayOfMonth));
 
                 fab.setVisibility(View.VISIBLE);
                 welcomeNote.setVisibility(View.GONE);
@@ -138,6 +140,7 @@ public class ShiftsActivity extends AppCompatActivity {
         //  Open edit info activity
         if (id == R.id.miEdit) {
             Intent intent = new Intent(this, EditInfoActivity.class);
+            intent.putExtra("USER_INFO", user);
             startActivity(intent);
             return true;
         }
@@ -201,15 +204,15 @@ public class ShiftsActivity extends AppCompatActivity {
             }
         });
         LocalTime workTime = calcWorkTime(shift);
-        tvWorkHours.setText("Total work time on this day: " + workTime.toString());
+        tvWorkHours.setText(getString(R.string.total_work_hours, workTime.toString()));
         updateEarned(workTime);
     }
 
     //  After loading new shift calculate and make visible the shift wage
     private void updateEarned(LocalTime workTime) {
         DecimalFormat df = new DecimalFormat("0.00");
-        Double earn = (Double.parseDouble(user.wage) * workTime.getHour()) + (Double.parseDouble(user.wage) * ((workTime.getMinute()*1.0)/60));
-        twWorkIncome.setText("You earned " + df.format(earn) + " this shift.");
+        Double earn = (Double.parseDouble(user.getWage()) * workTime.getHour()) + (Double.parseDouble(user.getWage()) * ((workTime.getMinute()*1.0)/60));
+        twWorkIncome.setText(getString(R.string.total_earn_for_shift ,df.format(earn)));
     }
 
     //  Calculate the length of the shift

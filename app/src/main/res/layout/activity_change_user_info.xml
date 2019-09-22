@@ -15,7 +15,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First name" />
+                android:text="@string/first_name" />
 
             <EditText
                 android:id="@+id/esFName"
@@ -35,7 +35,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last name" />
+                android:text="@string/last_name" />
 
             <EditText
                 android:id="@+id/esLNAME"
@@ -55,7 +55,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Company name" />
+                android:text="@string/company_name" />
 
             <EditText
                 android:id="@+id/esCompany"
@@ -73,7 +73,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hourly wage" />
+                android:text="@string/hourly_wage" />
 
             <EditText
                 android:id="@+id/esWage"
@@ -93,13 +93,13 @@
         android:id="@+id/bSaveEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save edit"
+        android:text="@string/save_edit_button"
         android:onClick="saveEdit"/>
 
     <Button
         android:id="@+id/bCancelEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel Edit"
+        android:text="@string/cancel_edit_button"
         android:onClick="cancel"/>
 </LinearLayout>

@@ -15,5 +15,13 @@ public class Register {
         this.wage = wage;
     }
 
+    public Register(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.company = user.getCompany();
+        this.wage = user.getWage();
+        this.email = user.getEmail();
+    }
+
     public Register() {}
 }

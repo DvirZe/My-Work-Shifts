@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textFilledBackground"
             android:ems="10"
-            android:hint="First Name"
+            android:hint="@string/first_name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textFilledBackground"
             android:ems="10"
-            android:hint="Last Name"
+            android:hint="@string/last_name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textFilledBackground"
             android:ems="10"
-            android:hint="Company Name"
+            android:hint="@string/company_name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textFilledBackground"
             android:ems="10"
-            android:hint="Hourly Wage"
+            android:hint="@string/hourly_wage"
             android:inputType="number" />
 
         <EditText
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textFilledBackground"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textFilledBackground"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <Button
@@ -89,7 +89,7 @@
             android:gravity="fill_vertical|end"
             android:hapticFeedbackEnabled="false"
             android:onClick="finish"
-            android:text="Complete Registration"
+            android:text="@string/complete_registration"
             android:textAlignment="center"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>

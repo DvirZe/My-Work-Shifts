@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "340233883769-j1h8bihjbg8re7c7cjie5iks0llr2o2f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myworkshifts",
+            "certificate_hash": "3e6fe9868acad7b328b895c6dab51095e7043c7d"
+          }
+        },
+        {
           "client_id": "340233883769-ni3tknha515nhdvv97eji1ojq2n5brol.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

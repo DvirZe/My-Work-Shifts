@@ -9,12 +9,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.classes.DatabaseConnection;
 import com.example.classes.Shift;
 import com.example.listeners.OnFocusChangeAddShift;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.LocalDate;
 
@@ -22,7 +20,7 @@ import es.dmoral.toasty.Toasty;
 
 public class AddShiftActivity extends AppCompatActivity {
 
-    private FirebaseUser currentUser;
+    private DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
     private Shift shift;
     private LocalDate selectedDate;
     private EditText etStart, etEnd;
@@ -32,16 +30,13 @@ public class AddShiftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shift);
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-
         TextView addShiftTitle = findViewById(R.id.addShiftTitle);
 
         shift = new Shift();
 
         selectedDate = LocalDate.parse(getIntent().getExtras().getString("NEW_SHIFT_DATE"));
 
-        addShiftTitle.setText("Please enter the work hours for " + selectedDate.getDayOfWeek() + " the " + selectedDate.getDayOfMonth() + " in " + selectedDate.getMonth() + " ," + selectedDate.getYear());
+        addShiftTitle.setText(getString(R.string.enter_work_hours, selectedDate.getDayOfWeek(), selectedDate.getDayOfMonth(), selectedDate.getMonth(), selectedDate.getYear()));
 
         etStart = findViewById(R.id.etStart);
         etEnd = findViewById(R.id.etEnd);
@@ -78,8 +73,8 @@ public class AddShiftActivity extends AppCompatActivity {
                 Toasty.error(view.getContext(), getString(R.string.hour_error),
                         Toast.LENGTH_LONG).show();
             } else {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference().child(currentUser.getUid())
+                DatabaseReference myRef = databaseConnection.getDatabase().getReference()
+                        .child(databaseConnection.getCurrentUser().getUid())
                         .child("workHours")
                         .child(String.valueOf(selectedDate.getYear()))
                         .child(String.valueOf(selectedDate.getMonthValue()))

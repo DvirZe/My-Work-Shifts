@@ -9,13 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.classes.DatabaseConnection;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import com.example.classes.Register;
 
@@ -23,8 +21,7 @@ import es.dmoral.toasty.Toasty;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private static DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
 
     private EditText firstName;
     private EditText lastName;
@@ -38,8 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        databaseConnection.initUser();
 
         firstName   = findViewById(R.id.etFirstName);
         lastName    = findViewById(R.id.etLastName);
@@ -62,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toasty.info(view.getContext(), R.string.form_incomplete, Toast.LENGTH_SHORT).show();
         } else {
 
-            mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+            databaseConnection.getmAuth().createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -81,11 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void saveUserInfo(View view){
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child(currentUser.getUid()).child("general");
+        DatabaseReference myRef = DatabaseConnection.getDatabase().getReference().child(DatabaseConnection.getCurrentUser().getUid()).child("general");
 
         //  Save user info to the Database
-        myRef.setValue(new Register(currentUser.getEmail(),
+        myRef.setValue(new Register(DatabaseConnection.getCurrentUser().getEmail(),
                 firstName.getText().toString().trim(),
                 lastName.getText().toString().trim(),
                 companyName.getText().toString().trim(),

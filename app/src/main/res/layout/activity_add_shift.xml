@@ -8,7 +8,7 @@
         style="@style/Widget.AppCompat.TextView.SpinnerItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please enter the work hours for " />
+        android:text="@string/example_text" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Start Hour 00:00"
+                android:hint="@string/add_shift_start_hour_edit_text"
                 android:inputType="time" />
         </LinearLayout>
 
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:elegantTextHeight="false"
                 android:ems="10"
-                android:hint="End Hour 00:00"
+                android:hint="@string/add_shift_end_hour_edit_text"
                 android:inputType="time" />
         </LinearLayout>
 
@@ -54,12 +54,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="saveShift"
-        android:text="Save Shift" />
+        android:text="@string/add_shift_save_button" />
 
     <Button
         android:id="@+id/bCancelAddShift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="cancel"
-        android:text="Cancel" />
+        android:text="@string/add_shift_cancel_button" />
 </LinearLayout>
