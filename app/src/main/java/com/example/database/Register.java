@@ -1,4 +1,6 @@
-package com.example.classes;
+package com.example.database;
+
+import com.example.classes.User;
 
 public class Register {
     public String email;

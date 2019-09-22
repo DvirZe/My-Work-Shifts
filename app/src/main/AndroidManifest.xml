@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myworkshifts">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.activities">
 
     <application
         android:allowBackup="true"
@@ -9,20 +10,20 @@
         android:roundIcon="@mipmap/ic_working_hours_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".ShiftsActivity"
+        <activity android:name="com.example.activities.RegisterActivity"></activity>
+        <activity android:name="com.example.activities.ShiftsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".AddShiftActivity"></activity>
-        <activity android:name=".EditInfoActivity"></activity>
+        <activity android:name="com.example.activities.AddShiftActivity"></activity>
+        <activity android:name="com.example.activities.EditInfoActivity"></activity>
     </application>
 
 </manifest>

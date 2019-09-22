@@ -1,4 +1,4 @@
-package com.example.myworkshifts;
+package com.example.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -18,17 +18,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.classes.DatabaseConnection;
-import com.example.classes.Register;
-import com.example.classes.Shift;
+import com.example.database.DatabaseConnection;
+import com.example.database.Register;
+import com.example.database.Shift;
+import com.example.classes.ShiftHours;
 import com.example.classes.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -103,10 +101,11 @@ public class ShiftsActivity extends AppCompatActivity {
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Shift shift = dataSnapshot.getValue(Shift.class);
-                        if (shift == null) {
+                        Shift data = dataSnapshot.getValue(Shift.class);
+                        if (data == null) {
                             handleNonExistsShift(null);
                         } else {
+                            ShiftHours shift = new ShiftHours(data);
                             handelExistsShift(shift);
                         }
                     }
@@ -192,7 +191,7 @@ public class ShiftsActivity extends AppCompatActivity {
 
     /*  This method change the work hours section
         and update the icon */
-    private void handelExistsShift(Shift shift) {
+    private void handelExistsShift(ShiftHours shift) {
         tvStart.setText(shift.getStart());
         tvEnd.setText(shift.getEnd());
         workInfo.setVisibility(View.VISIBLE);
@@ -216,7 +215,7 @@ public class ShiftsActivity extends AppCompatActivity {
     }
 
     //  Calculate the length of the shift
-    private LocalTime calcWorkTime(Shift shift) {
+    private LocalTime calcWorkTime(ShiftHours shift) {
         LocalTime start = LocalTime.parse(shift.getStart());
         LocalTime end = LocalTime.parse(shift.getEnd());
         int minutes = end.getMinute() - start.getMinute();

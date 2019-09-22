@@ -1,4 +1,4 @@
-package com.example.myworkshifts;
+package com.example.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.classes.DatabaseConnection;
-import com.example.classes.Shift;
+import com.example.database.DatabaseConnection;
+import com.example.classes.ShiftHours;
 import com.example.listeners.OnFocusChangeAddShift;
 import com.google.firebase.database.DatabaseReference;
 
@@ -21,7 +21,6 @@ import es.dmoral.toasty.Toasty;
 public class AddShiftActivity extends AppCompatActivity {
 
     private DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
-    private Shift shift;
     private LocalDate selectedDate;
     private EditText etStart, etEnd;
 
@@ -31,8 +30,6 @@ public class AddShiftActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_shift);
 
         TextView addShiftTitle = findViewById(R.id.addShiftTitle);
-
-        shift = new Shift();
 
         selectedDate = LocalDate.parse(getIntent().getExtras().getString("NEW_SHIFT_DATE"));
 
@@ -61,9 +58,9 @@ public class AddShiftActivity extends AppCompatActivity {
         {
             Toasty.info(view.getContext(), R.string.empty_fields_add_shift,Toast.LENGTH_LONG).show();
         }else {
-
-            shift.start = etStart.getText().toString();
-            shift.end = etEnd.getText().toString();
+            ShiftHours shift = new ShiftHours();
+            shift.setStart(etStart.getText().toString());
+            shift.setEnd(etEnd.getText().toString());
 
             //  Make sure that the end hour is later then the start hour
             if (shift.compereHours() == 0) {

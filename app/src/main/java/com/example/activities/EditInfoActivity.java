@@ -1,4 +1,4 @@
-package com.example.myworkshifts;
+package com.example.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.classes.DatabaseConnection;
-import com.example.classes.Register;
+import com.example.database.DatabaseConnection;
+import com.example.database.Register;
 import com.example.classes.User;
 import com.google.firebase.database.DatabaseReference;
 

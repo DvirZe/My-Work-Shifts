@@ -1,8 +1,8 @@
 package com.example.classes;
 
-import org.junit.Test;
+import com.example.database.Shift;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class ShiftTest {
 

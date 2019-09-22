@@ -1,4 +1,4 @@
-package com.example.myworkshifts;
+package com.example.activities;
 
 import android.content.Context;
 

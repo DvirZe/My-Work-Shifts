@@ -1,4 +1,4 @@
-package com.example.myworkshifts;
+package com.example.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +9,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.classes.DatabaseConnection;
+import com.example.database.DatabaseConnection;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DatabaseReference;
 
-import com.example.classes.Register;
+import com.example.database.Register;
 
 import es.dmoral.toasty.Toasty;
 
@@ -88,12 +88,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         Toasty.success(view.getContext(), R.string.reg_complete, Toast.LENGTH_SHORT).show();
 
-        finish();
-
         //  Open the next stage - main screen of the app
-        Intent intent = new Intent(view.getContext(), ShiftsActivity.class);
+        Intent intent = new Intent(this, ShiftsActivity.class);
         startActivity(intent);
 
+        finish();
     }
 
 
