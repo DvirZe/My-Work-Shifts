@@ -144,6 +144,7 @@ public class ShiftsActivity extends AppCompatActivity {
             return true;
         }
 
+        //  Exit to android home screen
         if (id == R.id.miExit) {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory( Intent.CATEGORY_HOME );
