@@ -145,7 +145,10 @@ public class ShiftsActivity extends AppCompatActivity {
         }
 
         if (id == R.id.miExit) {
-            finish();
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
             return true;
         }
 
