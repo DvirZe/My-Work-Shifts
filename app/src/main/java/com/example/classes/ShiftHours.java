@@ -5,7 +5,7 @@ import com.example.database.Shift;
 
 import java.time.LocalTime;
 
-public class ShiftHours implements ShiftHoursImterface {
+public class ShiftHours implements ShiftHoursInterface {
 
     private String startHour;
     private String endHour;

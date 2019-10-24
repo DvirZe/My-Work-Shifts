@@ -1,6 +1,6 @@
 package com.example.classes;
 
-public interface ShiftHoursImterface {
+public interface ShiftHoursInterface {
 
     String getStart();
 
